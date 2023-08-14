@@ -1,0 +1,14 @@
+import os
+
+
+filepath = input("Please input the file path where the video files are located (no quotation marks): ")
+output_path = input("Please input the output path of the videos: ")
+vid_format = input("Type of video file (e.g. mp4, mkv...)?: ")
+files = os.listdir(filepath)
+# print(files)
+os.chdir(filepath)
+
+for file in files:
+    if vid_format in file:
+        os.system(f'ffmpeg -y -hwaccel cuda -i {file} -vf "scale=1280:720" -b:v 10M {output_path}{file}')
+        print(file)
